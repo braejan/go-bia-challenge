@@ -1,0 +1,13 @@
+version: '3'
+services:
+  database:
+    build:
+      context: ./internal/infraestructure/database/postgres
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_HOST=database
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=stori-challenge-db
