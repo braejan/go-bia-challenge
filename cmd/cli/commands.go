@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 
 	consumptionRepo "github.com/braejan/go-bia-challenge/internal/domain/consumption/repository/postgres"
 	consumptionUc "github.com/braejan/go-bia-challenge/internal/domain/consumption/usecases"
@@ -33,5 +34,29 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	println(string(jsonString))
+	fmt.Println("daily: ", string(jsonString))
+
+	// Get weekly accumulated consumption
+	consumptions, err = consumptionUsecases.GetWeeklyAccumulatedConsumptionByIDs(metersID, beginDate, endDate)
+	if err != nil {
+		panic(err)
+	}
+	// print consumptions JSON response
+	jsonString, err = json.Marshal(consumptions)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("weekly: ", string(jsonString))
+
+	// Get monthly accumulated consumption
+	consumptions, err = consumptionUsecases.GetMonthlyAccumulatedConsumptionByIDs(metersID, beginDate, endDate)
+	if err != nil {
+		panic(err)
+	}
+	// print consumptions JSON response
+	jsonString, err = json.Marshal(consumptions)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("monthly: ", string(jsonString))
 }
