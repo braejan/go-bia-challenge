@@ -43,7 +43,7 @@ func NewDefaultPostgresConfiguration() (configuration *PostgresConfiguration) {
 		Port:     5432,
 		User:     "postgres",
 		Password: "postgres",
-		Database: "stori-challenge-db",
+		Database: "bia-challenge-db",
 	}
 	return
 }
