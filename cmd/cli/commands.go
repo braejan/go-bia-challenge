@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	metersID := []int64{1, 2}
+	metersID := "1,2"
 	beginDate := "2023-06-01"
 	endDate := "2023-07-10"
 	// Create a postgres configuration from environment variables

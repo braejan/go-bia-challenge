@@ -23,9 +23,13 @@ func NewConsumptionUsecases(consumptionRepo repository.ConsumptionRepository) (c
 
 // ConsumptionUsecases interface implementation.
 
-func (c *ConsumptionUsecasesImpl) GetDailyAccumulatedConsumptionByIDs(ids []int64, beginDate, endDate string) (consumptions entity.ConsumptionResponse, err error) {
+func (c *ConsumptionUsecasesImpl) GetDailyAccumulatedConsumptionByIDs(ids string, beginDate, endDate string) (consumptions entity.ConsumptionResponse, err error) {
 	// Get consumptions from repository for daily accumulated consumption.
-	consumptionsRepo, err := c.consumptionRepo.GetConsumptionsByIDSGroupedDaily(ids, beginDate, endDate)
+	intIDs, err := util.String2Int64Slice(ids)
+	if err != nil {
+		return consumptions, err
+	}
+	consumptionsRepo, err := c.consumptionRepo.GetConsumptionsByIDSGroupedDaily(intIDs, beginDate, endDate)
 	if err != nil {
 		return consumptions, err
 	}
@@ -33,10 +37,13 @@ func (c *ConsumptionUsecasesImpl) GetDailyAccumulatedConsumptionByIDs(ids []int6
 	return
 }
 
-func (c *ConsumptionUsecasesImpl) GetWeeklyAccumulatedConsumptionByIDs(ids []int64, beginDate, endDate string) (consumptions entity.ConsumptionResponse, err error) {
-	consumptions = entity.ConsumptionResponse{}
+func (c *ConsumptionUsecasesImpl) GetWeeklyAccumulatedConsumptionByIDs(ids string, beginDate, endDate string) (consumptions entity.ConsumptionResponse, err error) {
 	// Get consumptions from repository for daily accumulated consumption.
-	consumptionsRepo, err := c.consumptionRepo.GetConsumptionsByIDSGroupedWeekly(ids, beginDate, endDate)
+	intIDs, err := util.String2Int64Slice(ids)
+	if err != nil {
+		return consumptions, err
+	}
+	consumptionsRepo, err := c.consumptionRepo.GetConsumptionsByIDSGroupedWeekly(intIDs, beginDate, endDate)
 	if err != nil {
 		return consumptions, err
 	}
@@ -44,9 +51,13 @@ func (c *ConsumptionUsecasesImpl) GetWeeklyAccumulatedConsumptionByIDs(ids []int
 	return
 }
 
-func (c *ConsumptionUsecasesImpl) GetMonthlyAccumulatedConsumptionByIDs(ids []int64, beginDate, endDate string) (consumptions entity.ConsumptionResponse, err error) {
+func (c *ConsumptionUsecasesImpl) GetMonthlyAccumulatedConsumptionByIDs(ids string, beginDate, endDate string) (consumptions entity.ConsumptionResponse, err error) {
 	// Get consumptions from repository for monthly accumulated consumption.
-	consumptionsRepo, err := c.consumptionRepo.GetConsumptionsByIDSGroupedMonthly(ids, beginDate, endDate)
+	intIDs, err := util.String2Int64Slice(ids)
+	if err != nil {
+		return consumptions, err
+	}
+	consumptionsRepo, err := c.consumptionRepo.GetConsumptionsByIDSGroupedMonthly(intIDs, beginDate, endDate)
 	if err != nil {
 		return consumptions, err
 	}
