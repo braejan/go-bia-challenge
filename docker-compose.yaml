@@ -1,0 +1,26 @@
+version: '3'
+services:
+  database:
+    build:
+      context: ./internal/infraestructure/database/postgres
+    ports:
+      - '5432:5432'
+    networks: 
+      - bia-challenge-network
+
+  file-rest:
+    build:
+      context: .
+    environment:
+      - POSTGRES_HOST=database
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=bia-challenge-db
+    ports:
+      - '8080:8080'
+    networks:
+      - bia-challenge-network
+
+networks:
+  bia-challenge-network:
