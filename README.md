@@ -1,4 +1,4 @@
-# go-bia-challenge
+# Bia Energy Golang Tech Challenge
 Una implementación de un reto técnico usando Golang y microservicios.
 
 ## Objetivo
