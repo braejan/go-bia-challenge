@@ -1,8 +1,8 @@
-package util_test
+package data
 
 import "github.com/braejan/go-bia-challenge/internal/domain/consumption/entity"
 
-func getConsumptionArrayForTest() (consumptions []*entity.Consumption) {
+func GetConsumptionArrayForTest() (consumptions []*entity.Consumption) {
 	// "JUL 03 - JUL 09" 1 1095719.9502499998	1502127.2601399994	1676.8760000000002	1412.6097562610273
 	// "JUN 26 - JUL 02" 1 13907652.027070006	796355.9196100001	715.297	1409.2760552337418
 	// "JUN 19 - JUN 25" 1 1051010.9760799997	2778538.902079999	1416.4679999999998	1401.5160283531786

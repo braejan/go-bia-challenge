@@ -5,6 +5,7 @@ import (
 
 	"github.com/braejan/go-bia-challenge/internal/domain/consumption/entity"
 	"github.com/braejan/go-bia-challenge/internal/domain/consumption/util"
+	"github.com/braejan/go-bia-challenge/tests/data"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -22,7 +23,7 @@ func TestConsumption2ConsumptionResponse_EmptyConsumptions(t *testing.T) {
 // TestConsumption2ConsumptionResponse with a consumption.
 func TestConsumption2ConsumptionResponse_OneConsumption(t *testing.T) {
 	// Given a consumption
-	consumptions := getConsumptionArrayForTest()[0]
+	consumptions := data.GetConsumptionArrayForTest()[0]
 	// When call Consumption2ConsumptionResponse
 	consumptionResponse := util.Consumption2ConsumptionResponse([]*entity.Consumption{consumptions})
 	// Then return a consumption response
@@ -33,7 +34,7 @@ func TestConsumption2ConsumptionResponse_OneConsumption(t *testing.T) {
 // TestConsumption2ConsumptionResponse with a consumption list.
 func TestConsumption2ConsumptionResponse_ConsumptionList(t *testing.T) {
 	// Given a consumption list
-	consumptions := getConsumptionArrayForTest()
+	consumptions := data.GetConsumptionArrayForTest()
 	// When call Consumption2ConsumptionResponse
 	consumptionResponse := util.Consumption2ConsumptionResponse(consumptions)
 	// Then return a consumption response
