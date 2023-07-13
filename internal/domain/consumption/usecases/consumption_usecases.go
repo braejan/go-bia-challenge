@@ -25,7 +25,7 @@ func NewConsumptionUsecases(consumptionRepo repository.ConsumptionRepository) (c
 
 func (c *ConsumptionUsecasesImpl) GetDailyAccumulatedConsumptionByIDs(ids string, beginDate, endDate string) (consumptions entity.ConsumptionResponse, err error) {
 	// Get consumptions from repository for daily accumulated consumption.
-	intIDs, err := util.String2Int64Slice(ids)
+	intIDs, err := getValidatedParameters(ids, beginDate, endDate)
 	if err != nil {
 		return consumptions, err
 	}
@@ -39,7 +39,7 @@ func (c *ConsumptionUsecasesImpl) GetDailyAccumulatedConsumptionByIDs(ids string
 
 func (c *ConsumptionUsecasesImpl) GetWeeklyAccumulatedConsumptionByIDs(ids string, beginDate, endDate string) (consumptions entity.ConsumptionResponse, err error) {
 	// Get consumptions from repository for daily accumulated consumption.
-	intIDs, err := util.String2Int64Slice(ids)
+	intIDs, err := getValidatedParameters(ids, beginDate, endDate)
 	if err != nil {
 		return consumptions, err
 	}
@@ -53,7 +53,7 @@ func (c *ConsumptionUsecasesImpl) GetWeeklyAccumulatedConsumptionByIDs(ids strin
 
 func (c *ConsumptionUsecasesImpl) GetMonthlyAccumulatedConsumptionByIDs(ids string, beginDate, endDate string) (consumptions entity.ConsumptionResponse, err error) {
 	// Get consumptions from repository for monthly accumulated consumption.
-	intIDs, err := util.String2Int64Slice(ids)
+	intIDs, err := getValidatedParameters(ids, beginDate, endDate)
 	if err != nil {
 		return consumptions, err
 	}
@@ -62,5 +62,22 @@ func (c *ConsumptionUsecasesImpl) GetMonthlyAccumulatedConsumptionByIDs(ids stri
 		return consumptions, err
 	}
 	consumptions = *util.Consumption2ConsumptionResponse(consumptionsRepo)
+	return
+}
+
+func getValidatedParameters(ids string, beginDate, endDate string) (intIDs []int64, err error) {
+	// Get consumptions from repository for daily accumulated consumption.
+	intIDs, err = util.String2Int64Slice(ids)
+	if err != nil {
+		return nil, err
+	}
+	err = util.ValidateDate(beginDate)
+	if err != nil {
+		return nil, err
+	}
+	err = util.ValidateDate(endDate)
+	if err != nil {
+		return nil, err
+	}
 	return
 }

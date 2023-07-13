@@ -3,6 +3,9 @@ package util
 import (
 	"strconv"
 	"strings"
+	"time"
+
+	consumptionVO "github.com/braejan/go-bia-challenge/internal/valueobject/consumption"
 )
 
 // String2Int64Slice Convert string to int64 slice.
@@ -26,6 +29,20 @@ func String2Int64(s string) (id int64, err error) {
 	id, err = strconv.ParseInt(s, 10, 64)
 	if err != nil {
 		return 0, err
+	}
+	return
+}
+
+// Validate date string in format YYYY-MM-DD
+func ValidateDate(dateStr string) (err error) {
+	// Check date is not empty
+	if dateStr == "" {
+		return consumptionVO.ErrEmptyDate
+	}
+	// convert string to time
+	_, err = time.Parse("2006-01-02", dateStr)
+	if err != nil {
+		return consumptionVO.ErrInvalidDate
 	}
 	return
 }

@@ -1,15 +1,20 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
+	"github.com/braejan/go-bia-challenge/internal/domain/consumption/entity"
 	consumptionRepo "github.com/braejan/go-bia-challenge/internal/domain/consumption/repository/postgres"
 	"github.com/braejan/go-bia-challenge/internal/domain/consumption/usecases"
+	consumptionVO "github.com/braejan/go-bia-challenge/internal/valueobject/consumption"
 	"github.com/braejan/go-bia-challenge/internal/valueobject/postgres"
 	"github.com/gin-gonic/gin"
 )
 
 var consumptionUC usecases.ConsumptionUsecases
+
+type ucFunction func(ids string, beginDate, endDate string) (consumptions entity.ConsumptionResponse, err error)
 
 // init function called to initialize the usecases
 func init() {
@@ -29,16 +34,20 @@ func init() {
 
 func main() {
 	router := gin.Default()
-
-	// Query string parameters are parsed using the existing underlying request object.
-	// The request responds to an url matching:  /welcome?firstname=Jane&lastname=Doe
 	router.GET("/consumption", func(c *gin.Context) {
 		meterIDs := c.Query("meter_ids")
-		beginDate := "2023-06-01"
-		endDate := "2023-07-10"
-		// Get daily accumulated consumption
-		consumptions, err := consumptionUC.GetDailyAccumulatedConsumptionByIDs(meterIDs, beginDate, endDate)
+		beginDate := c.Query("start_date")
+		endDate := c.Query("end_date")
+		kindPeriod := c.Query("kind_period")
+		ucFinalFunction, err := getUCFunction(kindPeriod)
 		if err != nil {
+			log.Println("error: ", err)
+			c.String(http.StatusBadRequest, err.Error())
+			return
+		}
+		consumptions, err := ucFinalFunction(meterIDs, beginDate, endDate)
+		if err != nil {
+			log.Println("error: ", err)
 			c.String(http.StatusInternalServerError, err.Error())
 			return
 		}
@@ -46,4 +55,18 @@ func main() {
 	})
 	router.Run(":8080")
 
+}
+
+func getUCFunction(kindPeriod string) (function ucFunction, err error) {
+	switch kindPeriod {
+	case "daily":
+		function = consumptionUC.GetDailyAccumulatedConsumptionByIDs
+	case "weekly":
+		function = consumptionUC.GetWeeklyAccumulatedConsumptionByIDs
+	case "monthly":
+		function = consumptionUC.GetMonthlyAccumulatedConsumptionByIDs
+	default:
+		err = consumptionVO.ErrInvalidKindPeriod
+	}
+	return
 }
