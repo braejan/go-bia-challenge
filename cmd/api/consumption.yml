@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: Energy Consumption API
+  version: 1.0.0
+  description: API for retrieving energy consumption data
+servers:
+  - url: http://localhost:8080
+paths:
+  /consumption:
+    get:
+      summary: Get energy consumption data
+      description: Returns energy consumption data for a given period
+      parameters:
+        - name: period
+          in: query
+          description: Period to retrieve data for
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              example: ["JUN 2023", "JUL 2023"]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  period:
+                    type: array
+                    items:
+                      type: string
+                      example: ["JUN 2023", "JUL 2023"]
+                  data_graph:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        meter_id:
+                          type: integer
+                          example: 1
+                        address:
+                          type: string
+                          example: "Dirección Mock"
+                        active_energy:
+                          type: array
+                          items:
+                            type: number
+                            example: [28853895.42664002, 22129138.077179987]
+                          description: Active energy consumption for the given period
+                        reactive_energy:
+                          type: array
+                          items:
+                            type: number
+                            example: [4486645.46164, 1643312.1089800023]
+                          description: Reactive energy consumption for the given period
+                        capacitive_reactive:
+                          type: array
+                          items:
+                            type: number
+                            example: [7372.619, 2341.153]
+                          description: Capacitive reactive energy consumption for the given period
+                        solar:
+                          type: array
+                          items:
+                            type: number
+                            example: [5943.037877272408, 3114.0005055555116]
+                          description: Solar energy production for the given period
+      tags:
+        - consumption
