@@ -49,7 +49,7 @@ func TestGetDefaultPostgresConfigurationSuccess(t *testing.T) {
 	assert.Equal(t, 5432, configuration.Port)
 	assert.Equal(t, "postgres", configuration.User)
 	assert.Equal(t, "postgres", configuration.Password)
-	assert.Equal(t, "stori-challenge-db", configuration.Database)
+	assert.Equal(t, "bia-challenge-db", configuration.Database)
 }
 
 // TestGetPostgresConfigurationFromEnvSuccess tests the GetPostgresConfigurationFromEnv function succeeds.
@@ -69,7 +69,7 @@ func TestGetPostgresConfigurationFromEnvSuccess(t *testing.T) {
 	err = os.Setenv("POSTGRES_PASSWORD", "postgres")
 	assert.NoError(t, err)
 	// And a POSTGRES_DATABASE environment variable
-	err = os.Setenv("POSTGRES_DATABASE", "stori-challenge-db")
+	err = os.Setenv("POSTGRES_DATABASE", "bia-challenge-db")
 	assert.NoError(t, err)
 	// When call GetPostgresConfigurationFromEnv
 	configuration := postgres.NewPostgresConfigurationFromEnv()
@@ -78,7 +78,7 @@ func TestGetPostgresConfigurationFromEnvSuccess(t *testing.T) {
 	assert.Equal(t, 1234, configuration.Port)
 	assert.Equal(t, "postgres", configuration.User)
 	assert.Equal(t, "postgres", configuration.Password)
-	assert.Equal(t, "stori-challenge-db", configuration.Database)
+	assert.Equal(t, "bia-challenge-db", configuration.Database)
 }
 
 // TestGetPostgresConfigurationFromEnvWithEmptyHostSuccess tests the GetPostgresConfigurationFromEnv function succeeds.
@@ -104,7 +104,7 @@ func TestGetPostgresConfigurationFromEnvWithEmptyHostSuccess(t *testing.T) {
 	assert.Equal(t, 5432, configuration.Port)
 	assert.Equal(t, "postgres", configuration.User)
 	assert.Equal(t, "postgres", configuration.Password)
-	assert.Equal(t, "stori-challenge-db", configuration.Database)
+	assert.Equal(t, "bia-challenge-db", configuration.Database)
 }
 
 // TestGetPostgresConfigurationFromEnvWithEmptyPortSuccess tests the GetPostgresConfigurationFromEnv function succeeds.
@@ -130,7 +130,7 @@ func TestGetPostgresConfigurationFromEnvWithEmptyPortSuccess(t *testing.T) {
 	assert.Equal(t, 5432, configuration.Port)
 	assert.Equal(t, "postgres", configuration.User)
 	assert.Equal(t, "postgres", configuration.Password)
-	assert.Equal(t, "stori-challenge-db", configuration.Database)
+	assert.Equal(t, "bia-challenge-db", configuration.Database)
 }
 
 // TestGetDataSoureNameSuccess tests the GetDataSourceName function succeeds.
@@ -140,5 +140,5 @@ func TestGetDataSoureNameSuccess(t *testing.T) {
 	// When call GetDataSourceName
 	dataSourceName := configuration.GetDataSourceName()
 	// Then return a data source name
-	assert.Equal(t, "host=localhost port=5432 user=postgres password=postgres dbname=stori-challenge-db sslmode=disable", dataSourceName)
+	assert.Equal(t, "host=localhost port=5432 user=postgres password=postgres dbname=bia-challenge-db sslmode=disable", dataSourceName)
 }

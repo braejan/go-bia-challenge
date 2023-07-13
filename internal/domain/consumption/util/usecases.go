@@ -23,7 +23,6 @@ func String2Int64Slice(s string) (ids []int64, err error) {
 }
 
 // String2Int64 Convert string to int64.
-// Example: "1" -> int64(1)
 func String2Int64(s string) (id int64, err error) {
 	// parse string to int64
 	id, err = strconv.ParseInt(s, 10, 64)

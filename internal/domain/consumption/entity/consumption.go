@@ -4,18 +4,6 @@ import (
 	"github.com/google/uuid"
 )
 
-/*
-CREATE TABLE consumptions (
-    id       UUID PRIMARY KEY,
-    meter_id BIGINT,
-    active_energy FLOAT,
-    reactive_energy FLOAT,
-    capacitive_reactive FLOAT,
-    solar FLOAT,
-    date TIMESTAMP NOT NULL DEFAULT NOW()
-);
-*/
-
 // Consumption is the consumption entity struct.
 type Consumption struct {
 	ID                 uuid.UUID
