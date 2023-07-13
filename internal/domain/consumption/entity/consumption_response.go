@@ -13,29 +13,3 @@ type ConsumptionDataGraph struct {
 	CapacitiveReactive []float64 `json:"capacitive_reactive"`
 	Solar              []float64 `json:"solar"`
 }
-
-// NewConsumptionResponse creates a new instance of ConsumptionResponse.
-func NewConsumptionResponse(period []string, dataGraph []*ConsumptionDataGraph) *ConsumptionResponse {
-	return &ConsumptionResponse{
-		Period:    period,
-		DataGraph: dataGraph,
-	}
-}
-
-// NewConsumptionDataGraph creates a new instance of ConsumptionDataGraph.
-func NewConsumptionDataGraph(
-	meterID int64,
-	address string,
-	activeEnergy,
-	reactiveEnergy,
-	capacitiveReactive,
-	solar []float64) *ConsumptionDataGraph {
-	return &ConsumptionDataGraph{
-		MeterID:            meterID,
-		Address:            address,
-		ActiveEnergy:       activeEnergy,
-		ReactiveEnergy:     reactiveEnergy,
-		CapacitiveReactive: capacitiveReactive,
-		Solar:              solar,
-	}
-}

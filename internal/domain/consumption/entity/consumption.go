@@ -14,16 +14,3 @@ type Consumption struct {
 	Solar              float64
 	Date               string
 }
-
-// NewConsumption creates a new instance of Consumption entity.
-func NewConsumption(id uuid.UUID, meterID int64, activeEnergy, reactiveEnergy, capacitiveReactive, solar float64, date string) *Consumption {
-	return &Consumption{
-		ID:                 id,
-		MeterID:            meterID,
-		ActiveEnergy:       activeEnergy,
-		ReactiveEnergy:     reactiveEnergy,
-		CapacitiveReactive: capacitiveReactive,
-		Solar:              solar,
-		Date:               date,
-	}
-}
